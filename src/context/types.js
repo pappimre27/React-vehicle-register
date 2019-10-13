@@ -1,0 +1,12 @@
+export const GET_VEHICLES = 'GET_VEHICLES';
+export const ADD_VEHICLE = 'ADD_VEHICLE';
+export const DELETE_VEHICLE = 'DELETE_VEHICLE';
+export const SET_CURRENT = 'SET_CURRENT';
+export const CLEAR_CURRENT = 'CLEAR_CURRENT';
+export const UPDATE_VEHICLE = 'UPDATE_VEHICLE';
+export const FILTER_VEHICLE = 'FILTER_VEHICLE';
+export const CLEAR_VEHICLES = 'CLEAR_VEHICLES';
+export const CLEAR_FILTER = 'CLEAR_FILTER';
+export const VEHICLE_ERROR = 'VEHICLE_ERROR';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
