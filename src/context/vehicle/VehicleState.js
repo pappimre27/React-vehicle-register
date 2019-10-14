@@ -51,15 +51,15 @@ const VehicleState = props => {
   const initialState = {
     vehicles: getVehiclesLS(),
     // vehicles: [
-    //   {
-    //     id: 1,
-    //     plateNumber: 'EFG-459',
-    //     manufacturer: 'Nissan',
-    //     type: 'Primera',
-    //     inspection: '2019-11-29',
-    //     owner: 'Jill Johnson',
-    //     insurence: 'Uniqa'
-    //   },
+    // {
+    //   id: 1,
+    //   plateNumber: 'EFG-459',
+    //   manufacturer: 'Nissan',
+    //   type: 'Primera',
+    //   inspection: '2019-11-29',
+    //   owner: 'Jill Johnson',
+    //   insurence: 'Uniqa'
+    // },
     //   {
     //     id: 2,
     //     plateNumber: 'GPY-941',

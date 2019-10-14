@@ -26,22 +26,11 @@ const VehicleItem = ({ vehicle }) => {
     <div className='card bg-light'>
       <h3 className='text-primary text-left'>
         <i className='fa fa-car'></i> {plateNumber}{' '}
-        <span
-          style={{ float: 'right' }}
-          // className={
-          //   'badge ' +
-          //   (type === 'professional' ? 'badge-success' : 'badge-primary')
-          // }
-          className='badge badge-success'>
+        <span style={{ float: 'right' }} className='badge badge-success'>
           {manufacturer.charAt(0).toUpperCase() + manufacturer.slice(1)}
         </span>
       </h3>
       <ul className='list'>
-        {/* {manufacturer && (
-          <li>
-            <i className='fas fa-industry'></i> {manufacturer}
-          </li>
-        )} */}
         {type && (
           <li>
             <i className='fas fa-industry'></i>

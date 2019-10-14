@@ -48,16 +48,20 @@ const VehicleForm = () => {
   const onSubmit = e => {
     e.preventDefault();
     if (current === null) {
-      if (type === '') {
-        alertContext.setAlert('Please enter a phone number', 'danger');
+      if (plateNumber.length < 6) {
+        alertContext.setAlert(
+          'The license plate number has to be at least 6 letters long',
+          'danger'
+        );
       } else {
         addVehicle(vehicle); // if there is no current we are adding a new contact
+        clearAll();
       }
     } else {
       // we are updating
       updateVehicle(vehicle);
+      clearAll();
     }
-    clearAll();
   };
 
   const clearAll = () => {
@@ -69,13 +73,14 @@ const VehicleForm = () => {
       <h2 className='text-primary'>
         {current ? 'Edit Vehicle' : 'Register Vehicle'}
       </h2>
-      <h5>Plate Number</h5>
+      <h5>License Plate Number</h5>
       <input
         type='text'
         placeholder='Plate number...'
         name='plateNumber'
         value={plateNumber} // the destructured value from vehicle
         onChange={onChange}
+        required
       />
       <h5>Manufacturer</h5>
       <input
@@ -84,6 +89,7 @@ const VehicleForm = () => {
         name='manufacturer'
         value={manufacturer}
         onChange={onChange}
+        required
       />
       <h5>Type</h5>
       <input
