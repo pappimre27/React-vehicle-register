@@ -1,8 +1,7 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import VehicleItem from './VehicleItem';
 import VehicleContext from '../../context/vehicle/vehicleContext';
-import Spinner from '../layout/Spinner';
 
 const Vehicles = () => {
   const vehicleContext = useContext(VehicleContext);
@@ -15,13 +14,19 @@ const Vehicles = () => {
 
   return (
     <Fragment>
-      {filtered !== null
-        ? filtered.map(vehicle => (
-            <VehicleItem key={vehicle.id} vehicle={vehicle} />
-          ))
-        : vehicles.map(vehicle => (
-            <VehicleItem key={vehicle.id} vehicle={vehicle} />
-          ))}
+      <TransitionGroup>
+        {filtered !== null
+          ? filtered.map(vehicle => (
+              <CSSTransition key={vehicle.id} timeout={500} classNames='item'>
+                <VehicleItem vehicle={vehicle} />
+              </CSSTransition>
+            ))
+          : vehicles.map(vehicle => (
+              <CSSTransition key={vehicle.id} timeout={500} classNames='item'>
+                <VehicleItem vehicle={vehicle} />
+              </CSSTransition>
+            ))}
+      </TransitionGroup>
     </Fragment>
   );
 };

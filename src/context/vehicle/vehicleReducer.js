@@ -1,14 +1,11 @@
 import {
-  GET_VEHICLES,
   ADD_VEHICLE,
   DELETE_VEHICLE,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_VEHICLE,
   FILTER_VEHICLE,
-  CLEAR_FILTER,
-  VEHICLE_ERROR,
-  CLEAR_VEHICLES
+  CLEAR_FILTER
 } from '../types';
 
 export default (state, action) => {

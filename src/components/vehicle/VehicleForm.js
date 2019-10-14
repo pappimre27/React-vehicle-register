@@ -59,8 +59,15 @@ const VehicleForm = () => {
       }
     } else {
       // we are updating
-      updateVehicle(vehicle);
-      clearAll();
+      if (plateNumber.length < 6) {
+        alertContext.setAlert(
+          'The license plate number has to be at least 6 letters long',
+          'danger'
+        );
+      } else {
+        updateVehicle(vehicle);
+        clearAll();
+      }
     }
   };
 
@@ -138,7 +145,7 @@ const VehicleForm = () => {
       <div>
         {current && (
           <div>
-            <button className='btn btn-light btn-block' onClick={clearAll}>
+            <button className='btn btn-dark btn-block' onClick={clearAll}>
               Clear
             </button>
           </div>

@@ -5,7 +5,7 @@ import VehicleContext from '../../context/vehicle/vehicleContext';
 const VehicleItem = ({ vehicle }) => {
   const vehicleContext = useContext(VehicleContext);
 
-  const { deleteVehicle, current, setCurrent, clearCurrent } = vehicleContext;
+  const { deleteVehicle, setCurrent, clearCurrent } = vehicleContext;
 
   const {
     id,
@@ -27,7 +27,7 @@ const VehicleItem = ({ vehicle }) => {
       <h3 className='text-primary text-left'>
         <i className='fa fa-car'></i> {plateNumber}{' '}
         <span style={{ float: 'right' }} className='badge badge-success'>
-          {manufacturer.charAt(0).toUpperCase() + manufacturer.slice(1)}
+          {manufacturer[0].toUpperCase() + manufacturer.substr(1)}
         </span>
       </h3>
       <ul className='list'>

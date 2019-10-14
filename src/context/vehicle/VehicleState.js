@@ -1,20 +1,16 @@
 import React, { useReducer } from 'react';
 import uuid from 'uuid';
-import axios from 'axios';
 import VehicleContext from './vehicleContext';
 import vehicleReducer from './vehicleReducer';
 
 import {
-  CLEAR_VEHICLES,
   ADD_VEHICLE,
   DELETE_VEHICLE,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_VEHICLE,
   FILTER_VEHICLE,
-  CLEAR_FILTER,
-  VEHICLE_ERROR,
-  GET_VEHICLES
+  CLEAR_FILTER
 } from '../types';
 
 const VehicleState = props => {
@@ -57,7 +53,7 @@ const VehicleState = props => {
     //   manufacturer: 'Nissan',
     //   type: 'Primera',
     //   inspection: '2019-11-29',
-    //   owner: 'Jill Johnson',
+    //   owner: 'Jill Doe',
     //   insurence: 'Uniqa'
     // },
     //   {
@@ -66,7 +62,7 @@ const VehicleState = props => {
     //     manufacturer: 'Ford',
     //     type: 'Fiesta',
     //     inspection: '2020-11-29',
-    //     owner: 'Sara Wattson',
+    //     owner: 'Sara Doe',
     //     insurence: 'Generali'
     //   },
     //   {
@@ -75,7 +71,7 @@ const VehicleState = props => {
     //     manufacturer: 'Ford',
     //     type: 'Transit',
     //     inspection: '2019-11-01',
-    //     owner: 'Harry White',
+    //     owner: 'Harry',
     //     insurence: 'Provident'
     //   }
     // ],
