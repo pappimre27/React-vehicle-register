@@ -69,6 +69,7 @@ const VehicleForm = () => {
       <h2 className='text-primary'>
         {current ? 'Edit Vehicle' : 'Register Vehicle'}
       </h2>
+      <h5>Plate Number</h5>
       <input
         type='text'
         placeholder='Plate number...'
@@ -76,6 +77,7 @@ const VehicleForm = () => {
         value={plateNumber} // the destructured value from vehicle
         onChange={onChange}
       />
+      <h5>Manufacturer</h5>
       <input
         type='text'
         placeholder='Manufacturer...'
@@ -83,6 +85,7 @@ const VehicleForm = () => {
         value={manufacturer}
         onChange={onChange}
       />
+      <h5>Type</h5>
       <input
         type='text'
         placeholder='Type'
@@ -91,7 +94,7 @@ const VehicleForm = () => {
         onChange={onChange}
         required
       />
-      <h4>Inspection Date</h4>
+      <h5>Inspection Date</h5>
       <input
         type='date'
         placeholder='Inspection date...'
@@ -100,6 +103,7 @@ const VehicleForm = () => {
         onChange={onChange}
         required
       />
+      <h5>Owner's name</h5>
       <input
         type='text'
         placeholder='Owner'
@@ -108,6 +112,7 @@ const VehicleForm = () => {
         onChange={onChange}
         required
       />
+      <h5>Insurence company</h5>
       <input
         type='text'
         placeholder='Insurence company'
