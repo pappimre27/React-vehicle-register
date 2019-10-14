@@ -28,6 +28,26 @@ const VehicleState = props => {
     return vehiclesStorage;
   };
 
+  const addVehicleLS = vehicle => {
+    const vehiclesLS = getVehiclesLS();
+    vehiclesLS.push(vehicle);
+    localStorage.setItem('vehicles', JSON.stringify(vehiclesLS));
+  };
+
+  const updateVehicleLS = vehicle => {
+    const items = getVehiclesLS();
+    const updated = items.map(item =>
+      item.id === vehicle.id ? vehicle : item
+    );
+    localStorage.setItem('vehicles', JSON.stringify(updated));
+  };
+
+  const deleteVehicleLS = id => {
+    const items = getVehiclesLS();
+    const deleted = items.filter(item => item.id !== id);
+    localStorage.setItem('vehicles', JSON.stringify(deleted));
+  };
+
   const initialState = {
     vehicles: getVehiclesLS(),
     // vehicles: [
@@ -63,12 +83,6 @@ const VehicleState = props => {
     filtered: null
   };
 
-  const addVehicleLS = vehicle => {
-    const vehiclesLS = getVehiclesLS();
-    vehiclesLS.push(vehicle);
-    localStorage.setItem('vehicles', JSON.stringify(vehiclesLS));
-  };
-
   const [state, dispatch] = useReducer(vehicleReducer, initialState);
 
   // Add vehicle
@@ -81,6 +95,7 @@ const VehicleState = props => {
   // Delete vehicle
 
   const deleteVehicle = id => {
+    deleteVehicleLS(id);
     dispatch({ type: DELETE_VEHICLE, payload: id });
   };
 
@@ -96,6 +111,7 @@ const VehicleState = props => {
 
   // Update vehicle
   const updateVehicle = vehicle => {
+    updateVehicleLS(vehicle);
     dispatch({ type: UPDATE_VEHICLE, payload: vehicle });
   };
 

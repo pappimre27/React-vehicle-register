@@ -47,7 +47,11 @@ export default (state, action) => {
         ...state,
         filtered: state.vehicles.filter(vehicle => {
           const regex = new RegExp(`${action.payload}`, 'gi');
-          return vehicle.name.match(regex) || vehicle.email.match(regex);
+          return (
+            vehicle.plateNumber.match(regex) ||
+            vehicle.manufacturer.match(regex) ||
+            vehicle.type.match(regex)
+          );
         })
       };
     case CLEAR_FILTER:
