@@ -2,38 +2,40 @@ const express = require('express');
 const bodyParser = require('body-parser').json();
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const auth = require('../middleware/auth');
 
+const User = require('../models/User');
 const Vehicle = require('../models/Vehicles');
 
-// @route       GET api/jobs
-// @desc        GET all job posts
-// @access      Public for now
-router.get('/', async (req, res) => {
+// @route       GET api/vehicle
+// @desc        GET all vehicles
+// @access      Private
+router.get('/', auth, async (req, res) => {
   try {
-    const vehicle = await Vehicle.find();
-    res.json(vehicle);
+    const vehicles = await Vehicle.find();
+    res.json(vehicles);
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
   }
 });
 
-// @rout      GET api/jobs/:id
-// @desc      GET a job post by id
-// @access    Public for now
+// @rout      GET api/vehicles/:id
+// @desc      GET a vehicle by id
+// @access    Public
 // router.get('/:id', async (req, res) => {
 //   try {
-//     let jobPost = await Job.findById(req.params.id);
-//     if (!jobPost) return res.status(404).json({ msg: 'No post found' });
-//     res.json(jobPost);
+//     let vehicle = await Vehicle.findById(req.params.id);
+//     if (!vehicle) return res.status(404).json({ msg: 'No vehicle found' });
+//     res.json(vehicle);
 //   } catch (error) {
 //     console.error(error);
 //     res.status(500).send('Server Error');
 //   }
 // });
 
-// @route       POST api/jobs
-// @desc        Add a new job post
+// @route       POST api/vehicles
+// @desc        Add a new vehicle
 // @access      Public
 router.post(
   '/',
@@ -79,8 +81,8 @@ router.post(
   }
 );
 
-// @route       PUT api/jobs/:id
-// @desc        update job post
+// @route       PUT api/vehicles/:id
+// @desc        update vehicle
 // @access      Public
 router.put('/:id', bodyParser, async (req, res) => {
   const vehicleFields = {};
@@ -104,8 +106,8 @@ router.put('/:id', bodyParser, async (req, res) => {
   }
 });
 
-// @route       DELETE api/jobs/:id
-// @desc        delete job post
+// @route       DELETE api/vehicles/:id
+// @desc        delete vehicle
 // @access      Public
 router.delete('/:id', bodyParser, async (req, res) => {
   try {
