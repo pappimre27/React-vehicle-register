@@ -41,6 +41,7 @@ router.post(
   '/',
   [
     bodyParser,
+    auth,
     [
       check('plateNumber', 'Plate number is required')
         .not()
@@ -69,7 +70,7 @@ router.post(
     }
 
     try {
-      const newVehicle = new Job({
+      const newVehicle = new Vehicle({
         ...req.body
       });
       const vehicle = await newVehicle.save();
