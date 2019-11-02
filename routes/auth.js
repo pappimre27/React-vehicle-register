@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser').json();
 const jwt = require('jsonwebtoken');
 const config = require('config');
-// const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
@@ -12,9 +12,9 @@ const User = require('../models/User');
 // @route   GET api/auth
 // @desc    Get logged in user
 // @access  Private
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password'); // no password returned
     res.json(user);
   } catch (err) {
     console.error(err.message);
