@@ -6,26 +6,29 @@ import About from './components/pages/About';
 import Alerts from './components/layout/Alerts';
 import VehicleState from './context/vehicle/VehicleState';
 import AlertState from './context/alert/AlertState';
+import AuthState from './context/auth/AuthState';
 import './App.css';
 
 const App = () => {
   return (
-    <VehicleState>
-      <AlertState>
-        <Router>
-          <Fragment>
-            <Navbar />
-            <div className='container'>
-              <Alerts />
-              <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/about' component={About} />
-              </Switch>
-            </div>
-          </Fragment>
-        </Router>
-      </AlertState>
-    </VehicleState>
+    <AuthState>
+      <VehicleState>
+        <AlertState>
+          <Router>
+            <Fragment>
+              <Navbar />
+              <div className='container'>
+                <Alerts />
+                <Switch>
+                  <Route exact path='/' component={Home} />
+                  <Route exact path='/about' component={About} />
+                </Switch>
+              </div>
+            </Fragment>
+          </Router>
+        </AlertState>
+      </VehicleState>
+    </AuthState>
   );
 };
 
