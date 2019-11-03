@@ -20,20 +20,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// @rout      GET api/vehicles/:id
-// @desc      GET a vehicle by id
-// @access    Public
-// router.get('/:id', async (req, res) => {
-//   try {
-//     let vehicle = await Vehicle.findById(req.params.id);
-//     if (!vehicle) return res.status(404).json({ msg: 'No vehicle found' });
-//     res.json(vehicle);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Server Error');
-//   }
-// });
-
 // @route       POST api/vehicles
 // @desc        Add a new vehicle
 // @access      Public
@@ -84,8 +70,8 @@ router.post(
 
 // @route       PUT api/vehicles/:id
 // @desc        update vehicle
-// @access      Public
-router.put('/:id', bodyParser, async (req, res) => {
+// @access      Private
+router.put('/:id', [auth, bodyParser], async (req, res) => {
   const vehicleFields = {};
 
   for (const [keys, values] of Object.entries(req.body)) {
@@ -109,8 +95,8 @@ router.put('/:id', bodyParser, async (req, res) => {
 
 // @route       DELETE api/vehicles/:id
 // @desc        delete vehicle
-// @access      Public
-router.delete('/:id', bodyParser, async (req, res) => {
+// @access      Private
+router.delete('/:id', [auth, bodyParser], async (req, res) => {
   try {
     let vehicle = await Vehicle.findById(req.params.id);
     if (!vehicle) return res.status(404).json({ msg: 'No vehicle found' });
