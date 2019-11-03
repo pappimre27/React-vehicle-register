@@ -9,7 +9,12 @@ import Alerts from './components/layout/Alerts';
 import VehicleState from './context/vehicle/VehicleState';
 import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
+import setAuthToken from './utils/setAuthToken';
 import './App.css';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (

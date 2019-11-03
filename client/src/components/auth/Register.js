@@ -2,20 +2,25 @@ import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
-const Register = () => {
+const Register = props => {
   const alertContext = useContext(AlertContext);
-  const authContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
 
-  const { register, error, clearErrors } = authContext;
+  const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+
     if (error === 'User already exists') {
       setAlert(error, 'danger');
       clearErrors();
     }
-  }, [error]); // want this to run when the error changes
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]); // want this to run when the error changes
 
   const [user, setUser] = useState({
     name: '',
@@ -66,9 +71,9 @@ const Register = () => {
           />
         </div>
         <div className='form-group'>
-          <label htmlFor='password2'>Confirm Password</label>
+          <label htmlFor='password2'>Confirm password</label>
           <input
-            type='password2'
+            type='password'
             name='password2'
             value={password2}
             onChange={onChange}
