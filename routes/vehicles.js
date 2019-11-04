@@ -55,10 +55,27 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const { inspection } = req.body;
+
+    function formatDate(date) {
+      let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      return [year, month, day].join('-');
+    }
+
     try {
       const newVehicle = new Vehicle({
         ...req.body
       });
+
+      newVehicle.inspection = formatDate(inspection);
+
       const vehicle = await newVehicle.save();
       res.json(vehicle);
     } catch (error) {

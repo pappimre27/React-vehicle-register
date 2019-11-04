@@ -53,7 +53,10 @@ const VehicleState = props => {
 
   // Delete vehicle
 
-  const deleteVehicle = id => {
+  const deleteVehicle = async id => {
+    try {
+      await axios.delete(`/api/vehicles/${id}`);
+    } catch (error) {}
     dispatch({ type: DELETE_VEHICLE, payload: id });
   };
 

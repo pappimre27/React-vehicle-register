@@ -7,8 +7,8 @@ const VehicleItem = ({ vehicle }) => {
 
   const { deleteVehicle, setCurrent, clearCurrent } = vehicleContext;
 
-  let {
-    id,
+  const {
+    _id,
     plateNumber,
     manufacturer,
     type,
@@ -18,7 +18,7 @@ const VehicleItem = ({ vehicle }) => {
   } = vehicle;
 
   const onDelete = () => {
-    deleteVehicle(id);
+    deleteVehicle(_id);
     clearCurrent();
   };
 
@@ -42,7 +42,7 @@ const VehicleItem = ({ vehicle }) => {
           <li>
             <i className='fas fa-clock'></i>{' '}
             <span style={{ marginRight: '5px' }}>Inspection date:</span>
-            {inspection.split('T')[0]}
+            {inspection}
           </li>
         )}
         {owner && (

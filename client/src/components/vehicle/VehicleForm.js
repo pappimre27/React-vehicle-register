@@ -21,7 +21,7 @@ const VehicleForm = () => {
         insurence: ''
       });
     }
-  }, [vehicleContext, current]); // if the contactContext or the current value is changed
+  }, [vehicleContext, current]); // if the vehicleContext or the current value is changed
 
   // Since this is a form we need component level state
   const [vehicle, setVehicle] = useState({

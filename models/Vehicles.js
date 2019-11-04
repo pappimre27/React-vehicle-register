@@ -15,7 +15,7 @@ const VehicleSchema = mongoose.Schema({
     required: true
   },
   inspection: {
-    type: Date,
+    type: String,
     required: true
   },
   owner: {
