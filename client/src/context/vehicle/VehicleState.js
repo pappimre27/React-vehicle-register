@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import uuid from 'uuid';
+import axios from 'axios';
 import VehicleContext from './vehicleContext';
 import vehicleReducer from './vehicleReducer';
 
@@ -10,88 +10,38 @@ import {
   CLEAR_CURRENT,
   UPDATE_VEHICLE,
   FILTER_VEHICLE,
-  CLEAR_FILTER
+  CLEAR_FILTER,
+  VEHICLE_ERROR
 } from '../types';
 
 const VehicleState = props => {
-  const getVehiclesLS = () => {
-    let vehiclesStorage;
-    if (localStorage.getItem('vehicles') === null) {
-      vehiclesStorage = [];
-    } else {
-      vehiclesStorage = JSON.parse(localStorage.getItem('vehicles'));
-    }
-    return vehiclesStorage;
-  };
-
-  const addVehicleLS = vehicle => {
-    const vehiclesLS = getVehiclesLS();
-    vehiclesLS.push(vehicle);
-    localStorage.setItem('vehicles', JSON.stringify(vehiclesLS));
-  };
-
-  const updateVehicleLS = vehicle => {
-    const items = getVehiclesLS();
-    const updated = items.map(item =>
-      item.id === vehicle.id ? vehicle : item
-    );
-    localStorage.setItem('vehicles', JSON.stringify(updated));
-  };
-
-  const deleteVehicleLS = id => {
-    const items = getVehiclesLS();
-    const deleted = items.filter(item => item.id !== id);
-    localStorage.setItem('vehicles', JSON.stringify(deleted));
-  };
-
   const initialState = {
-    vehicles: getVehiclesLS(),
-    // vehicles: [
-    // {
-    //   id: 1,
-    //   plateNumber: 'EFG-459',
-    //   manufacturer: 'Nissan',
-    //   type: 'Primera',
-    //   inspection: '2019-11-29',
-    //   owner: 'Jill Doe',
-    //   insurence: 'Uniqa'
-    // },
-    //   {
-    //     id: 2,
-    //     plateNumber: 'GPY-941',
-    //     manufacturer: 'Ford',
-    //     type: 'Fiesta',
-    //     inspection: '2020-11-29',
-    //     owner: 'Sara Doe',
-    //     insurence: 'Generali'
-    //   },
-    //   {
-    //     id: 3,
-    //     plateNumber: 'HXX-344',
-    //     manufacturer: 'Ford',
-    //     type: 'Transit',
-    //     inspection: '2019-11-01',
-    //     owner: 'Harry',
-    //     insurence: 'Provident'
-    //   }
-    // ],
+    vehicles: [],
     current: null,
-    filtered: null
+    filtered: null,
+    error: null
   };
 
   const [state, dispatch] = useReducer(vehicleReducer, initialState);
 
   // Add vehicle
-  const addVehicle = vehicle => {
-    vehicle.id = uuid.v4();
-    addVehicleLS(vehicle);
-    dispatch({ type: ADD_VEHICLE, payload: vehicle });
+  const addVehicle = async vehicle => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post('/api/vehicles', vehicle, config);
+      dispatch({ type: ADD_VEHICLE, payload: res.data });
+    } catch (error) {
+      dispatch({ type: VEHICLE_ERROR, payload: error.respone.msg });
+    }
   };
 
   // Delete vehicle
 
   const deleteVehicle = id => {
-    deleteVehicleLS(id);
     dispatch({ type: DELETE_VEHICLE, payload: id });
   };
 
@@ -107,7 +57,6 @@ const VehicleState = props => {
 
   // Update vehicle
   const updateVehicle = vehicle => {
-    updateVehicleLS(vehicle);
     dispatch({ type: UPDATE_VEHICLE, payload: vehicle });
   };
 
@@ -127,6 +76,7 @@ const VehicleState = props => {
         vehicles: state.vehicles,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
         addVehicle,
         deleteVehicle,
         setCurrent,

@@ -5,6 +5,18 @@ import VehicleFilter from '../vehicle/VehicleFilter';
 import AuthContext from '../../context/auth/authContext';
 
 const Home = () => {
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, loadUser } = authContext;
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  if (!isAuthenticated) {
+    return <h4>Access denied</h4>;
+  }
+
   return (
     <div className='grid-2'>
       <div>
