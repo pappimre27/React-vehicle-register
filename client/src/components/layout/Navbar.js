@@ -2,14 +2,18 @@ import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
+import VehicleContext from '../../context/vehicle/vehicleContext';
 
 const Navbar = ({ title, icon }) => {
   const authContext = useContext(AuthContext);
+  const vehicleContext = useContext(VehicleContext);
 
   const { isAuthenticated, logout, user } = authContext;
+  const { clearVehicles } = vehicleContext;
 
   const onLogout = () => {
     logout();
+    clearVehicles();
   };
 
   const authLinks = (
@@ -51,7 +55,7 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-  title: 'Contact Keeper',
+  title: 'Vehicle Register',
   icon: 'fas fa-id-card-alt'
 };
 

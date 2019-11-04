@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import VehicleContext from '../../context/vehicle/vehicleContext';
 
@@ -7,7 +7,7 @@ const VehicleItem = ({ vehicle }) => {
 
   const { deleteVehicle, setCurrent, clearCurrent } = vehicleContext;
 
-  const {
+  let {
     id,
     plateNumber,
     manufacturer,
@@ -42,7 +42,7 @@ const VehicleItem = ({ vehicle }) => {
           <li>
             <i className='fas fa-clock'></i>{' '}
             <span style={{ marginRight: '5px' }}>Inspection date:</span>
-            {inspection}
+            {inspection.split('T')[0]}
           </li>
         )}
         {owner && (

@@ -1,34 +1,53 @@
 import {
+  GET_VEHICLES,
   ADD_VEHICLE,
   DELETE_VEHICLE,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_VEHICLE,
   FILTER_VEHICLE,
+  CLEAR_VEHICLES,
   CLEAR_FILTER,
   VEHICLE_ERROR
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_VEHICLES:
+      return {
+        ...state,
+        vehicles: action.payload,
+        loading: false
+      };
     case ADD_VEHICLE:
       return {
         ...state,
-        vehicles: [...state.vehicles, action.payload]
+        vehicles: [...state.vehicles, action.payload],
+        loading: false
       };
     case DELETE_VEHICLE:
       return {
         ...state,
         vehicles: state.vehicles.filter(
-          vehicle => vehicle.id !== action.payload
-        )
+          vehicle => vehicle._id !== action.payload
+        ),
+        loading: false
       };
     case UPDATE_VEHICLE:
       return {
         ...state,
         vehicles: state.vehicles.map(vehicle =>
-          vehicle.id === action.payload.id ? action.payload : vehicle
-        )
+          vehicle._id === action.payload._id ? action.payload : vehicle
+        ),
+        loading: false
+      };
+    case CLEAR_VEHICLES:
+      return {
+        ...state,
+        vehicles: null,
+        filtered: null,
+        error: null,
+        current: null
       };
     case SET_CURRENT:
       return {

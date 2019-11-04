@@ -11,18 +11,30 @@ import {
   UPDATE_VEHICLE,
   FILTER_VEHICLE,
   CLEAR_FILTER,
-  VEHICLE_ERROR
+  VEHICLE_ERROR,
+  GET_VEHICLES,
+  CLEAR_VEHICLES
 } from '../types';
 
 const VehicleState = props => {
   const initialState = {
-    vehicles: [],
+    vehicles: null,
     current: null,
     filtered: null,
     error: null
   };
 
   const [state, dispatch] = useReducer(vehicleReducer, initialState);
+
+  // Get vehicle
+  const getVehicles = async () => {
+    try {
+      const res = await axios.get('/api/vehicles');
+      dispatch({ type: GET_VEHICLES, payload: res.data });
+    } catch (error) {
+      dispatch({ type: VEHICLE_ERROR, payload: error.respone.msg });
+    }
+  };
 
   // Add vehicle
   const addVehicle = async vehicle => {
@@ -43,6 +55,11 @@ const VehicleState = props => {
 
   const deleteVehicle = id => {
     dispatch({ type: DELETE_VEHICLE, payload: id });
+  };
+
+  // clear vehicles
+  const clearVehicles = () => {
+    dispatch({ type: CLEAR_VEHICLES });
   };
 
   // Set Current vehicle
@@ -78,9 +95,11 @@ const VehicleState = props => {
         filtered: state.filtered,
         error: state.error,
         addVehicle,
+        getVehicles,
         deleteVehicle,
         setCurrent,
         clearCurrent,
+        clearVehicles,
         updateVehicle,
         filterVehicle,
         clearFilter
