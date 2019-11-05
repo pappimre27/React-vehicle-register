@@ -1,25 +1,24 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../context/auth/authContext';
-import AlertContext from '../../context/alert/alertContext';
+import { setAlert } from '../../actions/alertAction';
+import { connect } from 'react-redux';
 
-const Login = props => {
-  const alertContext = useContext(AlertContext);
+const Login = ({ setAlert, history }) => {
   const authContext = useContext(AuthContext);
 
-  const { setAlert } = alertContext;
   const { login, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
     console.log(isAuthenticated);
     if (isAuthenticated) {
-      props.history.push('/');
+      history.push('/');
     }
     if (error === 'Invalid Credentials') {
       setAlert(error, 'danger');
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [error, isAuthenticated, history]);
 
   const [user, setUser] = useState({
     email: '',
@@ -83,4 +82,7 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default connect(
+  null,
+  { setAlert }
+)(Login);

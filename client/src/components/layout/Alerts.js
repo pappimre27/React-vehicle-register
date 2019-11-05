@@ -1,17 +1,23 @@
-import React, { useContext } from 'react';
-import AlertContext from '../../context/alert/alertContext';
+import React from 'react';
+import { connect } from 'react-redux';
 
-const Alerts = () => {
-    const alertContext = useContext(AlertContext);
+const Alerts = ({ alerts }) => {
+  return (
+    alerts.length > 0 &&
+    alerts.map(alert => (
+      <div key={alert.id} className={`alert alert-${alert.type}`}>
+        <i className='fas fa-info-circle' />
+        {alert.msg}
+      </div>
+    ))
+  );
+};
 
-    return (
-        alertContext.alerts.length > 0
-        && alertContext.alerts.map(alert => (
-            <div key={alert.id} className={`alert alert-${alert.type}`}>
-                <i className="fas fa-info-circle" />{alert.msg}
-            </div>
-        ))
-    )
-}
+const mapStateToProps = state => ({
+  alerts: state.alert
+});
 
-export default Alerts;
+export default connect(
+  mapStateToProps,
+  null
+)(Alerts);

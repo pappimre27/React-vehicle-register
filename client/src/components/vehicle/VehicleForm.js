@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import VehicleContext from '../../context/vehicle/vehicleContext';
-import AlertContext from '../../context/alert/alertContext';
+import { setAlert } from '../../actions/alertAction';
+import { connect } from 'react-redux';
 
-const VehicleForm = () => {
+const VehicleForm = ({ setAlert }) => {
   const vehicleContext = useContext(VehicleContext);
-  const alertContext = useContext(AlertContext);
 
   const { addVehicle, clearCurrent, current, updateVehicle } = vehicleContext;
 
@@ -49,7 +49,7 @@ const VehicleForm = () => {
     e.preventDefault();
     if (current === null) {
       if (plateNumber.length < 6) {
-        alertContext.setAlert(
+        setAlert(
           'The license plate number has to be at least 6 letters long',
           'danger'
         );
@@ -60,7 +60,7 @@ const VehicleForm = () => {
     } else {
       // we are updating
       if (plateNumber.length < 6) {
-        alertContext.setAlert(
+        setAlert(
           'The license plate number has to be at least 6 letters long',
           'danger'
         );
@@ -155,4 +155,7 @@ const VehicleForm = () => {
   );
 };
 
-export default VehicleForm;
+export default connect(
+  null,
+  { setAlert }
+)(VehicleForm);

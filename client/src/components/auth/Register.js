@@ -1,18 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
+import { setAlert } from '../../actions/alertAction';
+import { connect } from 'react-redux';
 
-const Register = props => {
-  const alertContext = useContext(AlertContext);
+const Register = ({ setAlert, history }) => {
   const authContext = useContext(AuthContext);
-
-  const { setAlert } = alertContext;
 
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/');
+      history.push('/');
     }
 
     if (error === 'User already exists') {
@@ -20,7 +18,7 @@ const Register = props => {
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]); // want this to run when the error changes
+  }, [error, isAuthenticated, history]); // want this to run when the error changes
 
   const [user, setUser] = useState({
     name: '',
@@ -89,4 +87,7 @@ const Register = props => {
   );
 };
 
-export default Register;
+export default connect(
+  null,
+  { setAlert }
+)(Register);

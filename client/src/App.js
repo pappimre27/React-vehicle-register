@@ -7,7 +7,6 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 import VehicleState from './context/vehicle/VehicleState';
-import AlertState from './context/alert/AlertState';
 import AuthState from './context/auth/AuthState';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -24,22 +23,20 @@ const App = () => {
     <Provider store={store}>
       <AuthState>
         <VehicleState>
-          <AlertState>
-            <Router>
-              <Fragment>
-                <Navbar />
-                <div className='container'>
-                  <Alerts />
-                  <Switch>
-                    <PrivateRoute exact path='/' component={Home} />
-                    <Route exact path='/about' component={About} />
-                    <Route exact path='/register' component={Register} />
-                    <Route exact path='/login' component={Login} />
-                  </Switch>
-                </div>
-              </Fragment>
-            </Router>
-          </AlertState>
+          <Router>
+            <Fragment>
+              <Navbar />
+              <div className='container'>
+                <Alerts />
+                <Switch>
+                  <PrivateRoute exact path='/' component={Home} />
+                  <Route exact path='/about' component={About} />
+                  <Route exact path='/register' component={Register} />
+                  <Route exact path='/login' component={Login} />
+                </Switch>
+              </div>
+            </Fragment>
+          </Router>
         </VehicleState>
       </AuthState>
     </Provider>
