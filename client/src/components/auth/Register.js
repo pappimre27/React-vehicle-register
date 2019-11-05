@@ -1,13 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
-import AuthContext from '../../context/auth/authContext';
+import React, { useState, useEffect } from 'react';
 import { setAlert } from '../../actions/alertAction';
+import { clearErrors, register } from '../../actions/authAction';
 import { connect } from 'react-redux';
 
-const Register = ({ setAlert, history }) => {
-  const authContext = useContext(AuthContext);
-
-  const { register, error, clearErrors, isAuthenticated } = authContext;
-
+const Register = ({
+  setAlert,
+  clearErrors,
+  register,
+  error,
+  isAuthenticated,
+  history
+}) => {
   useEffect(() => {
     if (isAuthenticated) {
       history.push('/');
@@ -87,7 +90,12 @@ const Register = ({ setAlert, history }) => {
   );
 };
 
+const mapStateToProps = state => ({
+  error: state.auth.error,
+  isAuthenticated: state.auth.isAuthenticated
+});
+
 export default connect(
-  null,
-  { setAlert }
+  mapStateToProps,
+  { setAlert, clearErrors, register }
 )(Register);

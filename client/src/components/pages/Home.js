@@ -2,13 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import Vehicles from '../vehicle/Vehicles';
 import VehicleForm from '../vehicle/VehicleForm';
 import VehicleFilter from '../vehicle/VehicleFilter';
-import AuthContext from '../../context/auth/authContext';
+import { connect } from 'react-redux';
+import { loadUser } from '../../actions/authAction';
 
-const Home = () => {
-  const authContext = useContext(AuthContext);
-
-  const { loadUser } = authContext;
-
+const Home = ({ loadUser }) => {
   useEffect(() => {
     loadUser();
   }, []);
@@ -26,4 +23,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default connect(
+  null,
+  { loadUser }
+)(Home);
