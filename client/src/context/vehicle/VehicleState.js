@@ -32,7 +32,7 @@ const VehicleState = props => {
       const res = await axios.get('/api/vehicles');
       dispatch({ type: GET_VEHICLES, payload: res.data });
     } catch (error) {
-      dispatch({ type: VEHICLE_ERROR, payload: error.respone.msg });
+      dispatch({ type: VEHICLE_ERROR, payload: error.response.msg });
     }
   };
 
@@ -47,7 +47,7 @@ const VehicleState = props => {
       const res = await axios.post('/api/vehicles', vehicle, config);
       dispatch({ type: ADD_VEHICLE, payload: res.data });
     } catch (error) {
-      dispatch({ type: VEHICLE_ERROR, payload: error.respone.msg });
+      dispatch({ type: VEHICLE_ERROR, payload: error.response.msg });
     }
   };
 
@@ -56,8 +56,29 @@ const VehicleState = props => {
   const deleteVehicle = async id => {
     try {
       await axios.delete(`/api/vehicles/${id}`);
-    } catch (error) {}
+    } catch (error) {
+      dispatch({ type: VEHICLE_ERROR, payload: error.response.msg });
+    }
     dispatch({ type: DELETE_VEHICLE, payload: id });
+  };
+
+  // Update vehicle
+  const updateVehicle = async vehicle => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.put(
+        `/api/vehicles/${vehicle._id}`,
+        vehicle,
+        config
+      );
+      dispatch({ type: UPDATE_VEHICLE, payload: res.data });
+    } catch (error) {
+      dispatch({ type: VEHICLE_ERROR, payload: error.response.msg });
+    }
   };
 
   // clear vehicles
@@ -73,11 +94,6 @@ const VehicleState = props => {
   // Clear Current vehicle
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
-  };
-
-  // Update vehicle
-  const updateVehicle = vehicle => {
-    dispatch({ type: UPDATE_VEHICLE, payload: vehicle });
   };
 
   // Filter vehicle
