@@ -6,6 +6,7 @@ const auth = require('../middleware/auth');
 
 const User = require('../models/User');
 const Vehicle = require('../models/Vehicles');
+const { formatDate } = require('../helpers/helpers');
 
 // @route       GET api/vehicle
 // @desc        GET all vehicles
@@ -56,18 +57,6 @@ router.post(
     }
 
     const { inspection } = req.body;
-
-    function formatDate(date) {
-      let d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-      if (month.length < 2) month = '0' + month;
-      if (day.length < 2) day = '0' + day;
-
-      return [year, month, day].join('-');
-    }
 
     try {
       const newVehicle = new Vehicle({
