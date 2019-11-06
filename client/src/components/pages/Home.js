@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Vehicles from '../vehicle/Vehicles';
 import VehicleForm from '../vehicle/VehicleForm';
 import VehicleFilter from '../vehicle/VehicleFilter';
@@ -8,7 +8,7 @@ import { loadUser } from '../../actions/authAction';
 const Home = ({ loadUser }) => {
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [loadUser]);
 
   return (
     <div className='grid-2'>

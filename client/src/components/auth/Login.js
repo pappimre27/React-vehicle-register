@@ -12,7 +12,6 @@ const Login = ({
   history
 }) => {
   useEffect(() => {
-    console.log(isAuthenticated);
     if (isAuthenticated) {
       history.push('/');
     }
@@ -38,7 +37,6 @@ const Login = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log('Login submit');
     if (email === '' || password === '') {
       setAlert('Please fill in all fields', 'danger');
     } else {
