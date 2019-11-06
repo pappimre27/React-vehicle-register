@@ -16,6 +16,7 @@ const Login = ({
       history.push('/');
     }
     if (error === 'Invalid Credentials') {
+      console.log(error);
       setAlert(error, 'danger');
       clearErrors();
     }

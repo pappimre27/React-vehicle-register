@@ -16,8 +16,7 @@ const Register = ({
       history.push('/');
     }
 
-    if (error) {
-      console.log(error);
+    if (error === 'User already exists') {
       setAlert(error, 'danger');
       clearErrors();
     }
