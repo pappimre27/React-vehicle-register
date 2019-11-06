@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/authAction';
+import { logout, loadUser } from '../../actions/authAction';
 import { clearVehicles } from '../../actions/vehicleAction';
 
 const Navbar = ({
@@ -11,8 +11,14 @@ const Navbar = ({
   isAuthenticated,
   logout,
   user,
-  clearVehicles
+  clearVehicles,
+  loadUser
 }) => {
+  useEffect(() => {
+    loadUser();
+    // eslint-disable-next-line
+  }, []);
+
   const onLogout = () => {
     logout();
     clearVehicles();
@@ -30,7 +36,7 @@ const Navbar = ({
     </Fragment>
   );
 
-  const guessLinks = (
+  const guestLinks = (
     <Fragment>
       <li>
         <Link to='/register'>Register</Link>
@@ -46,7 +52,7 @@ const Navbar = ({
       <h1>
         <i className={icon} /> {title}
       </h1>
-      <ul>{isAuthenticated ? authLinks : guessLinks}</ul>
+      <ul>{isAuthenticated ? authLinks : guestLinks}</ul>
     </div>
   );
 };
@@ -68,5 +74,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout, clearVehicles }
+  { logout, clearVehicles, loadUser }
 )(Navbar);
