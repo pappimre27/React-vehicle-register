@@ -6,8 +6,11 @@ import { connect } from 'react-redux';
 import { getVehicles } from '../../actions/vehicleAction';
 
 const Vehicles = ({ vehicles, filtered, getVehicles, loading }) => {
+  const fetchVehicles = async () => {
+    await getVehicles();
+  };
   useEffect(() => {
-    getVehicles();
+    fetchVehicles();
     // eslint-disable-next-line
   }, []);
 

@@ -44,7 +44,7 @@ export const register = formdata => async dispatch => {
   } catch (err) {
     dispatch({
       type: REGISTER_FAIL,
-      payload: err.response.data.errors[0].msg
+      payload: err.response.data.msg
     });
   }
 };
@@ -66,7 +66,7 @@ export const login = formdata => async dispatch => {
   } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
-      payload: err.response.data.errors[0].msg
+      payload: err.response.data.msg
     });
   }
 };

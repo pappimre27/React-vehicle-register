@@ -10,7 +10,7 @@ const { formatDate } = require('../helpers/helpers');
 // @route       GET api/vehicle
 // @desc        GET all vehicles
 // @access      Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const vehicles = await Vehicle.find();
     res.json(vehicles);
