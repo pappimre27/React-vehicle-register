@@ -1,11 +1,9 @@
-import React, { useContext, useRef, useEffect } from 'react';
-import VehicleContext from '../../context/vehicle/vehicleContext';
+import React, { useRef, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { filterVehicle, clearFilter } from '../../actions/vehicleAction';
 
-const VehicleFilter = () => {
-  const vehicleContext = useContext(VehicleContext);
+const VehicleFilter = ({ filtered, filterVehicle, clearFilter }) => {
   const text = useRef('');
-
-  const { filterVehicle, clearFilter, filtered } = vehicleContext;
 
   useEffect(() => {
     if (filtered === null) {
@@ -33,4 +31,11 @@ const VehicleFilter = () => {
   );
 };
 
-export default VehicleFilter;
+const mapStateToProps = state => ({
+  filtered: state.vehicle.filtered
+});
+
+export default connect(
+  mapStateToProps,
+  { filterVehicle, clearFilter }
+)(VehicleFilter);

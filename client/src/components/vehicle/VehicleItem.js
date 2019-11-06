@@ -1,12 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import VehicleContext from '../../context/vehicle/vehicleContext';
+import {
+  deleteVehicle,
+  setCurrent,
+  clearCurrent
+} from '../../actions/vehicleAction';
+import { connect } from 'react-redux';
 
-const VehicleItem = ({ vehicle }) => {
-  const vehicleContext = useContext(VehicleContext);
-
-  const { deleteVehicle, setCurrent, clearCurrent } = vehicleContext;
-
+const VehicleItem = ({ vehicle, deleteVehicle, setCurrent, clearCurrent }) => {
   const {
     _id,
     plateNumber,
@@ -78,4 +79,7 @@ VehicleItem.propTypes = {
   vehicle: PropTypes.object.isRequired
 };
 
-export default VehicleItem;
+export default connect(
+  null,
+  { deleteVehicle, setCurrent, clearCurrent }
+)(VehicleItem);

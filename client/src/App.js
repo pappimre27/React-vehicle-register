@@ -6,7 +6,6 @@ import About from './components/pages/About';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
-import VehicleState from './context/vehicle/VehicleState';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import { Provider } from 'react-redux';
@@ -20,22 +19,20 @@ if (localStorage.token) {
 const App = () => {
   return (
     <Provider store={store}>
-      <VehicleState>
-        <Router>
-          <Fragment>
-            <Navbar />
-            <div className='container'>
-              <Alerts />
-              <Switch>
-                <PrivateRoute exact path='/' component={Home} />
-                <Route exact path='/about' component={About} />
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/login' component={Login} />
-              </Switch>
-            </div>
-          </Fragment>
-        </Router>
-      </VehicleState>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <div className='container'>
+            <Alerts />
+            <Switch>
+              <PrivateRoute exact path='/' component={Home} />
+              <Route exact path='/about' component={About} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+            </Switch>
+          </div>
+        </Fragment>
+      </Router>
     </Provider>
   );
 };

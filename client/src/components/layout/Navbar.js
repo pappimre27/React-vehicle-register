@@ -1,15 +1,18 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authAction';
-import VehicleContext from '../../context/vehicle/vehicleContext';
+import { clearVehicles } from '../../actions/vehicleAction';
 
-const Navbar = ({ title, icon, isAuthenticated, logout, user }) => {
-  const vehicleContext = useContext(VehicleContext);
-
-  const { clearVehicles } = vehicleContext;
-
+const Navbar = ({
+  title,
+  icon,
+  isAuthenticated,
+  logout,
+  user,
+  clearVehicles
+}) => {
   const onLogout = () => {
     logout();
     clearVehicles();
@@ -65,5 +68,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout }
+  { logout, clearVehicles }
 )(Navbar);

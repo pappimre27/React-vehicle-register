@@ -1,13 +1,19 @@
-import React, { useState, useContext, useEffect } from 'react';
-import VehicleContext from '../../context/vehicle/vehicleContext';
+import React, { useState, useEffect } from 'react';
 import { setAlert } from '../../actions/alertAction';
+import {
+  addVehicle,
+  updateVehicle,
+  clearCurrent
+} from '../../actions/vehicleAction';
 import { connect } from 'react-redux';
 
-const VehicleForm = ({ setAlert }) => {
-  const vehicleContext = useContext(VehicleContext);
-
-  const { addVehicle, clearCurrent, current, updateVehicle } = vehicleContext;
-
+const VehicleForm = ({
+  setAlert,
+  addVehicle,
+  clearCurrent,
+  current,
+  updateVehicle
+}) => {
   useEffect(() => {
     if (current !== null) {
       setVehicle(current);
@@ -21,7 +27,7 @@ const VehicleForm = ({ setAlert }) => {
         insurence: ''
       });
     }
-  }, [vehicleContext, current]); // if the vehicleContext or the current value is changed
+  }, [addVehicle, updateVehicle, current]); // if the vehicleContext or the current value is changed
 
   // Since this is a form we need component level state
   const [vehicle, setVehicle] = useState({
@@ -155,7 +161,11 @@ const VehicleForm = ({ setAlert }) => {
   );
 };
 
+const mapStateToProps = state => ({
+  current: state.vehicle.current
+});
+
 export default connect(
-  null,
-  { setAlert }
+  mapStateToProps,
+  { setAlert, addVehicle, clearCurrent, updateVehicle }
 )(VehicleForm);

@@ -1,14 +1,11 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import VehicleItem from './VehicleItem';
 import Spinner from '../layout/Spinner';
-import VehicleContext from '../../context/vehicle/vehicleContext';
+import { connect } from 'react-redux';
+import { getVehicles } from '../../actions/vehicleAction';
 
-const Vehicles = () => {
-  const vehicleContext = useContext(VehicleContext);
-
-  const { vehicles, filtered, getVehicles, loading } = vehicleContext;
-
+const Vehicles = ({ vehicles, filtered, getVehicles, loading }) => {
   useEffect(() => {
     getVehicles();
     // eslint-disable-next-line
@@ -47,4 +44,13 @@ const Vehicles = () => {
   );
 };
 
-export default Vehicles;
+const mapStateToProps = state => ({
+  vehicles: state.vehicle.vehicles,
+  filtered: state.vehicle.filtered,
+  loading: state.vehicle.loading
+});
+
+export default connect(
+  mapStateToProps,
+  { getVehicles }
+)(Vehicles);
