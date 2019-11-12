@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { setAlert } from '../../actions/alertAction';
-import { clearErrors, login } from '../../actions/authAction';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { setAlert } from "../../actions/alertAction";
+import { clearErrors, login } from "../../actions/authAction";
+import { getVehicles } from "../../actions/vehicleAction";
+import { connect } from "react-redux";
 
 const Login = ({
   setAlert,
@@ -9,23 +10,24 @@ const Login = ({
   login,
   error,
   isAuthenticated,
-  history
+  history,
+  getVehicles
 }) => {
   useEffect(() => {
     if (isAuthenticated) {
-      history.push('/');
+      history.push("/vehicles");
     }
-    if (error === 'Invalid Credentials') {
+    if (error === "Invalid Credentials") {
       console.log(error);
-      setAlert(error, 'danger');
+      setAlert(error, "danger");
       clearErrors();
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated, history]);
 
   const [user, setUser] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   });
 
   const { email, password } = user;
@@ -38,8 +40,8 @@ const Login = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    if (email === '' || password === '') {
-      setAlert('Please fill in all fields', 'danger');
+    if (email === "" || password === "") {
+      setAlert("Please fill in all fields", "danger");
     } else {
       login({
         email,
@@ -49,35 +51,35 @@ const Login = ({
   };
 
   return (
-    <div className='form-container'>
+    <div className="form-container">
       <h1>
-        Account <span className='text-primary'>Login</span>
+        Account <span className="text-primary">Login</span>
       </h1>
       <form onSubmit={onSubmit}>
-        <div className='form-group'>
-          <label htmlFor='email'>Email address</label>
+        <div className="form-group">
+          <label htmlFor="email">Email address</label>
           <input
-            type='email'
-            name='email'
+            type="email"
+            name="email"
             value={email}
             onChange={onChange}
             required
           />
         </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
-            type='password'
-            name='password'
+            type="password"
+            name="password"
             value={password}
             onChange={onChange}
             required
           />
         </div>
         <input
-          type='submit'
-          value='Login'
-          className='btn btn-primary btn-block'
+          type="submit"
+          value="Login"
+          className="btn btn-primary btn-block"
         />
       </form>
     </div>
@@ -89,7 +91,9 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { setAlert, clearErrors, login }
-)(Login);
+export default connect(mapStateToProps, {
+  setAlert,
+  clearErrors,
+  login,
+  getVehicles
+})(Login);

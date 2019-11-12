@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { logout, loadUser } from '../../actions/authAction';
-import { clearVehicles } from '../../actions/vehicleAction';
+import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout, loadUser } from "../../actions/authAction";
+import { clearVehicles } from "../../actions/vehicleAction";
 
 const Navbar = ({
   title,
@@ -26,11 +26,17 @@ const Navbar = ({
 
   const authLinks = (
     <Fragment>
+      <li>
+        <Link to="/vehicles">
+          <span style={{ color: "#fff" }}>Vehicles</span>
+        </Link>
+      </li>
+
       <li>Hello {user && user.name}</li>
       <li>
-        <a onClick={onLogout} href='#!'>
-          <i className='fas fa-sign-out-alt' />{' '}
-          <span className='hide-sm'>Logout</span>
+        <a onClick={onLogout} href="#!">
+          <i className="fas fa-sign-out-alt" />{" "}
+          <span className="hide-sm">Logout</span>
         </a>
       </li>
     </Fragment>
@@ -39,16 +45,16 @@ const Navbar = ({
   const guestLinks = (
     <Fragment>
       <li>
-        <Link to='/register'>Register</Link>
+        <Link to="/register">Register</Link>
       </li>
       <li>
-        <Link to='/login'>Login</Link>
+        <Link to="/login">Login</Link>
       </li>
     </Fragment>
   );
 
   return (
-    <div className='navbar bg-primary'>
+    <div className="navbar bg-primary">
       <h1>
         <i className={icon} /> {title}
       </h1>
@@ -63,8 +69,8 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-  title: 'Vehicle Register',
-  icon: 'fas fa-id-card-alt'
+  title: "Vehicle Register",
+  icon: "fas fa-id-card-alt"
 };
 
 const mapStateToProps = state => ({
@@ -72,7 +78,6 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(
-  mapStateToProps,
-  { logout, clearVehicles, loadUser }
-)(Navbar);
+export default connect(mapStateToProps, { logout, clearVehicles, loadUser })(
+  Navbar
+);

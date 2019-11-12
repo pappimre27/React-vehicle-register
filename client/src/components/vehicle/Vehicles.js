@@ -1,16 +1,20 @@
-import React, { Fragment, useEffect } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import VehicleItem from './VehicleItem';
-import Spinner from '../layout/Spinner';
-import { connect } from 'react-redux';
-import { getVehicles } from '../../actions/vehicleAction';
+import React, { Fragment, useEffect } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import VehicleItem from "./VehicleItem";
+import Spinner from "../layout/Spinner";
+import { connect } from "react-redux";
+import { getVehicles } from "../../actions/vehicleAction";
 
-const Vehicles = ({ vehicles, filtered, getVehicles, loading }) => {
-  const fetchVehicles = async () => {
-    await getVehicles();
-  };
+const Vehicles = ({
+  vehicles,
+  filtered,
+  getVehicles,
+  loading,
+  user,
+  isAuthenticated
+}) => {
   useEffect(() => {
-    fetchVehicles();
+    getVehicles();
     // eslint-disable-next-line
   }, []);
 
@@ -27,7 +31,8 @@ const Vehicles = ({ vehicles, filtered, getVehicles, loading }) => {
                 <CSSTransition
                   key={vehicle._id}
                   timeout={500}
-                  classNames='item'>
+                  classNames="item"
+                >
                   <VehicleItem vehicle={vehicle} />
                 </CSSTransition>
               ))
@@ -35,7 +40,8 @@ const Vehicles = ({ vehicles, filtered, getVehicles, loading }) => {
                 <CSSTransition
                   key={vehicle._id}
                   timeout={500}
-                  classNames='item'>
+                  classNames="item"
+                >
                   <VehicleItem vehicle={vehicle} />
                 </CSSTransition>
               ))}
@@ -50,10 +56,9 @@ const Vehicles = ({ vehicles, filtered, getVehicles, loading }) => {
 const mapStateToProps = state => ({
   vehicles: state.vehicle.vehicles,
   filtered: state.vehicle.filtered,
-  loading: state.vehicle.loading
+  loading: state.vehicle.loading,
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 
-export default connect(
-  mapStateToProps,
-  { getVehicles }
-)(Vehicles);
+export default connect(mapStateToProps, { getVehicles })(Vehicles);
