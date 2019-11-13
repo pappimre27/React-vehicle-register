@@ -9,7 +9,7 @@ const { formatDate } = require("../helpers/helpers");
 
 // @route       GET api/vehicle
 // @desc        GET all vehicles
-// @access      Private
+// @access      Public
 router.get("/", async (req, res) => {
   try {
     const vehicles = await Vehicle.find();
